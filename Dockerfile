@@ -1,7 +1,6 @@
 FROM node:12.14
 
-ENV THORIUM_VERSION 2.4.0
-ENV NODE_ENV="production node build/server/index.js"
+ARG THORIUM_VERSION
 WORKDIR /usr/src
 
 RUN curl -LJO "https://github.com/Thorium-Sim/thorium/archive/v${THORIUM_VERSION}.zip" \
@@ -9,8 +8,9 @@ RUN curl -LJO "https://github.com/Thorium-Sim/thorium/archive/v${THORIUM_VERSION
     && mv thorium-${THORIUM_VERSION} app && rm thorium-${THORIUM_VERSION}.zip \
     && cd /usr/src/app \
     && yarn install \
-    && npm run build
+    && yarn run build
 
 WORKDIR /usr/src/app
+ARG NODE_ENV
 
 CMD [ "node build/server/index.js" ]

@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+    thorium:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            args: 
+                - NODE_ENV=production
+                - THORIUM_VERSION=2.2.0
+        container_name: thorium
+        restart: unless-stopped
+        ports:
+            - "80:80"
+            - "443:443"
+            # - "4444:4444" # used if ports 80, 443 already in use
+        # volumes:
+            # - /path/to/thorium:/usr/src/app
